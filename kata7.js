@@ -1,119 +1,79 @@
+// adicionar o callback dentro do push
+//transformar o call em parametro opcional com todos os parametros
 
 //forEach(callback(currentValue [, index [, array]])
-function newForEach (array) {
+function newForEach (array, callback) {
         for (let index = 0; index < array.length; index++){
             let item = array[index]
-            callbackForEach(item)
+            callback(item, index, array) // adicionar todos os argumentos no callback
         }
-}
-
-function callbackForEach (item,index,array){
-        console.log(item) //instrução exemplo do callback
         return undefined
 }
 
 //map(function callback( currentValue[, index[, array]])
-function newMap (array) {
+function newMap (array,callback) {
     let newArray = []
     for (let index = 0; index < array.length; index++){
         let item = array[index]
-        newArray.push(item)
-        callbackForMap(item,index,newArray)
+        newArray.push(callback(item, index, newArray)) // adicionar o callback dentro do push
     }
     return newArray
 }
 
-function callbackForMap(item,index,array){
-    item += 1 //instrução exemplo do callback
-    array[index] = item
-    return array
-}
-
 //some(callback(element[, index[, array]])[, thisArg])
-function newSome(array) {
+function newSome(array, callback) {
     for (let index = 0; index < array.length; index++){
         let item = array[index]
-        if(callbackForSome(item) === true){
+        if(callback(item, index, array) === true){
             return true
         }
    }
    return false
 }
 
-function callbackForSome(item,index,array){
-        return item % 2 !== 0 //instrução exemplo do callback
-}
-
 //find()
-function newFind(array) {
+function newFind(array, callback) {
     for (let index = 0; index < array.length; index++){
         let item = array[index]
-        if (callbackForFind(item) === true ){
+        if (callback(item, index, array) === true ){
             return item
         }
     }
     return undefined
 }
 
-function callbackForFind(item,index,array){
-        if (item > 10 && item < 20){ //instrução exemplo do callback
-            return true
-        }
-        return false
-}
 //findIndex()
-function newFindIndex(array) {
+function newFindIndex(array, callback) {
     for (let index = 0; index < array.length; index++){
         let item = array[index]
-        if (callbackForFindIndex(item) === true) {
+        if (callback(item, index, array) === true) {
             return index
         }
     }
     return -1
 }
 
-function callbackForFindIndex(item,index,array){
-    if (item > 10 && item < 20){ //instrução exemplo do callback
-        return true
-    }
-    return false
-}
-
 //every()
-function newEvery (array) {
+function newEvery (array, callback) {
     for (let index = 0; index < array.length; index++){
         let item = array[index]
-        if (callbackForEvery(item) === false) {
+        if (callback(item, index, array) === false) {
             return false
         }
     }
     return true
 }
 
-function callbackForEvery(item,index,array){
-    if ( item > 10 && item < 20){
-        return true
-    }
-    return false
-}
-
 //filter()
-function newFilter(array) {
+function newFilter(array, callback) {
     let newArray = []
     for (let index = 0; index < array.length; index++){
         let item = array[index]
-        if (callbackForFilter(item) === true){
+        if (callback(item) === true){
             newArray.push(item)
         }
     }
     return newArray
-}
-
-function callbackForFilter(item,index,array){
-    if ( item > 10 && item < 20){
-        return true
-    }
-    return false
 }
 
 //concat()
@@ -202,18 +162,13 @@ function conditionalsForSlice(start, end){
 
 
 //flatMap()
-function newFlatMap(array) {
+function newFlatMap(array, callback) {
     let newArray = []
     for (let index = 0; index < array.length; index++){
         let item = array[index]
-        newArray.push(callbackForFlatMap(item,index,array))
+        newArray.push(callback(item,index,array))
     }
     return newArray
-}
-
-function callbackForFlatMap(item) {
-    item = item * 2 //instrução do callback
-    return item
 }
 
 //Array.of() //como acessar a quantidade de elementos que foi dada, sem ter como parametro a quantidade total?
