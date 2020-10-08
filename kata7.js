@@ -15,7 +15,7 @@ function newMap (array,callback) {
     let newArray = []
     for (let index = 0; index < array.length; index++){
         let item = array[index]
-        newArray.push(callback(item, index, newArray)) // adicionar o callback dentro do push
+        newArray.push(callback(item, index, array)) // adicionar o callback dentro do push
     }
     return newArray
 }
